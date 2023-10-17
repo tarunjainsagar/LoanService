@@ -1,0 +1,13 @@
+# Note: Database can be replaced with MySql database or any other database source.
+# Currently using H2 runtime database for demonstration purpose.
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true
+hibernate:
+  ddl-auto: update

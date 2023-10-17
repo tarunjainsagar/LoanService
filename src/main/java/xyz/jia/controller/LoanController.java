@@ -1,29 +1,45 @@
 package xyz.jia.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import xyz.jia.model.FeeProjection;
-import xyz.jia.model.InstallmentProjection;
+import xyz.jia.model.entity.QueryLog;
+import xyz.jia.model.input.FeeProjectionInput;
+import xyz.jia.model.input.InstallmentProjectionInput;
+import xyz.jia.model.response.FeeProjectionResponse;
+import xyz.jia.model.response.InstallmentProjectionResponse;
+import xyz.jia.repository.QueryLogRepository;
 import xyz.jia.service.FeeProjectionCalculator;
 import xyz.jia.service.InstallmentProjectionCalculator;
+import xyz.jia.utils.LogUtils;
 
 import java.util.List;
 
+import static xyz.jia.constants.UrlConstants.*;
+
 @RestController
-@RequestMapping("/loan")
+@RequestMapping(baseLoanApi)
 public class LoanController {
 
-    @GetMapping("/test")
-    public String getFeeProjections(@RequestParam int amount) {
-        return "Hello " + amount;
+    @Autowired
+    private QueryLogRepository queryLogRepository;
+
+    @Autowired
+    private LogUtils logUtils;
+
+    @PostMapping(feeProjectionApi)
+    public List<FeeProjectionResponse> postFeeProjections(@RequestBody FeeProjectionInput feeProjectionInput) {
+        logUtils.logRequestDetails(baseLoanApi, feeProjectionApi, feeProjectionInput);
+        return FeeProjectionCalculator.calculateFeeProjections(feeProjectionInput.getAmount(), feeProjectionInput.getDuration(), feeProjectionInput.getStartDate());
     }
 
-    @GetMapping("/fee-projections")
-    public List<FeeProjection> getFeeProjections(@RequestParam int amount, @RequestParam int duration, @RequestParam String startDate) {
-        return FeeProjectionCalculator.calculateFeeProjections(amount, duration, startDate);
+    @PostMapping(installmentProjectionApi)
+    public List<InstallmentProjectionResponse> postInstallmentProjections(@RequestBody InstallmentProjectionInput installmentProjectionInput) {
+        logUtils.logRequestDetails(baseLoanApi, installmentProjectionApi, installmentProjectionInput);
+        return InstallmentProjectionCalculator.calculateInstallmentProjections(installmentProjectionInput.getAmount(), installmentProjectionInput.getDuration(), installmentProjectionInput.getStartDate());
     }
 
-    @GetMapping("/installment-projections")
-    public List<InstallmentProjection> getInstallmentProjections(@RequestParam int amount, @RequestParam int duration, @RequestParam String startDate) {
-        return InstallmentProjectionCalculator.calculateInstallmentProjections(amount, duration, startDate);
+    @GetMapping(queryHistory)
+    public List<QueryLog> getAllQueries() {
+        return queryLogRepository.findAll();
     }
 }
