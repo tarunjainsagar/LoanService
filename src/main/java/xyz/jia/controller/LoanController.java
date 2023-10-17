@@ -7,7 +7,6 @@ import xyz.jia.model.input.FeeProjectionInput;
 import xyz.jia.model.input.InstallmentProjectionInput;
 import xyz.jia.repository.QueryLogRepository;
 import xyz.jia.service.CalculatorFactory;
-import xyz.jia.utils.LogUtils;
 
 import java.util.List;
 
@@ -20,23 +19,18 @@ public class LoanController {
     @Autowired
     private QueryLogRepository queryLogRepository;
 
-    @Autowired
-    private LogUtils logUtils;
-
     @PostMapping(feeProjectionApi)
-    public String postFeeProjections(@RequestBody FeeProjectionInput feeProjectionInput) {
-        logUtils.logRequestDetails(baseLoanApi, feeProjectionApi, feeProjectionInput);
+    public String feeProjections(@RequestBody FeeProjectionInput feeProjectionInput) {
         return CalculatorFactory.calculate(feeProjectionApi, feeProjectionInput);
     }
 
     @PostMapping(installmentProjectionApi)
-    public String postInstallmentProjections(@RequestBody InstallmentProjectionInput installmentProjectionInput) {
-        logUtils.logRequestDetails(baseLoanApi, installmentProjectionApi, installmentProjectionInput);
+    public String installmentProjections(@RequestBody InstallmentProjectionInput installmentProjectionInput) {
         return CalculatorFactory.calculate(installmentProjectionApi, installmentProjectionInput);
     }
 
-    @GetMapping(queryHistory)
-    public List<QueryLog> getAllQueries() {
+    @GetMapping(queryHistoryApi)
+    public List<QueryLog> queryHistory() {
         return queryLogRepository.findAll();
     }
 }

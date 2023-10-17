@@ -4,6 +4,6 @@ public interface UrlConstants {
         String baseLoanApi = "/loan";
         String feeProjectionApi = "/feeProjections";
         String installmentProjectionApi = "/installmentProjections";
-        String queryHistory = "/getQueryHistory";
+        String queryHistoryApi = "/getQueryHistory";
 
 }

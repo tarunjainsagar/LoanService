@@ -1,5 +1,6 @@
 package xyz.jia.utils;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.jia.model.entity.QueryLog;
@@ -9,11 +10,16 @@ import xyz.jia.repository.QueryLogRepository;
 import java.time.LocalDateTime;
 
 @Component
+@RequiredArgsConstructor
 public class LogUtils {
-    @Autowired
-    private QueryLogRepository queryLogRepository;
 
-    public void logRequestDetails(String baseUri, String requestUri, AbstractInput requestInputParams) {
+    private static QueryLogRepository queryLogRepository;
+    @Autowired
+    LogUtils(QueryLogRepository queryLogRepository) {
+        LogUtils.queryLogRepository = queryLogRepository;
+    }
+
+    public static void logRequestDetails(String baseUri, String requestUri, AbstractInput requestInputParams) {
         QueryLog history = new QueryLog();
         history.setRequestUri(getUri(baseUri, requestUri));
         history.setRequestParams(requestInputParams.toString());
@@ -22,7 +28,7 @@ public class LogUtils {
         queryLogRepository.save(history);
     }
 
-    private String getUri(String baseUri, String requestUri) {
+    private static String getUri(String baseUri, String requestUri) {
         return baseUri.concat(requestUri);
     }
 }
