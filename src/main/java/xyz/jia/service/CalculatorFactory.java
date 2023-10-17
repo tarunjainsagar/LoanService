@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import xyz.jia.constants.UrlConstants;
 import xyz.jia.model.input.AbstractInput;
 import xyz.jia.model.interfaces.ICalculator;
+import xyz.jia.utils.FormatUtils;
 import xyz.jia.utils.LogUtils;
 
 import static xyz.jia.constants.UrlConstants.baseLoanApi;
@@ -34,6 +35,10 @@ public class CalculatorFactory {
             throw new RuntimeException();
         }
         LogUtils.logRequestDetails(baseLoanApi, api, input);
-        return calculatorInterface.calculate(api, input).toString();
+        return FormatUtils.formatResponse(calculatorInterface.calculate(api, input));
     }
+
+
+
+
 }

@@ -14,7 +14,8 @@ public class FeeProjectionResponse extends AbstractOutput {
         try {
             String superToString = super.toString();
             ObjectNode installmentResponse = objectMapper.createObjectNode();
-            installmentResponse.put(UrlConstants.feeProjectionApi, superToString);
+            installmentResponse.put("type", UrlConstants.feeProjectionApi);
+            installmentResponse.put("data", superToString);
             return installmentResponse.toString();
         } catch (Exception e) {
             log.error("Failed to parse response: feeProjectionResponse: ", e);

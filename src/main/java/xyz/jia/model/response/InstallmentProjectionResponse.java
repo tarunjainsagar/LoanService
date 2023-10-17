@@ -13,7 +13,8 @@ public class InstallmentProjectionResponse extends AbstractOutput {
         try {
             String superToString = super.toString();
             ObjectNode installmentResponse = objectMapper.createObjectNode();
-            installmentResponse.put(UrlConstants.installmentProjectionApi, superToString);
+            installmentResponse.put("type", UrlConstants.installmentProjectionApi);
+            installmentResponse.put("data", superToString);
             return installmentResponse.toString();
         } catch (Exception e) {
             log.error("Failed to parse response: installmentProjectionResponse: ", e);
