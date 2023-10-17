@@ -1,12 +1,30 @@
 package xyz.jia.service;
 
+import org.springframework.stereotype.Component;
+import xyz.jia.model.input.AbstractInput;
+import xyz.jia.model.interfaces.ICalculator;
+import xyz.jia.model.response.AbstractOutput;
 import xyz.jia.model.response.FeeProjectionResponse;
+import xyz.jia.model.response.ProjectionReponse;
 
-import java.util.List;
+import java.util.Arrays;
 
-public class FeeProjectionCalculator {
-    public static List<FeeProjectionResponse> calculateFeeProjections(int amount, int duration, String startDate) {
+@Component
+public class FeeProjectionCalculator implements ICalculator {
+
+    @Override
+    public AbstractOutput calculate(String api, AbstractInput input) {
         // todo: implement functionality
-        return null;
+
+        /*
+        * dummy implementation to check flow
+        * */
+        FeeProjectionResponse fpr = new FeeProjectionResponse();
+        fpr.setProjectionResponseList(Arrays.asList(
+                new ProjectionReponse().setAmount(100).setDate("01/10/2023"),
+                new ProjectionReponse().setAmount(200).setDate("01/10/2025"),
+                new ProjectionReponse().setAmount(300).setDate("01/10/2024")
+        ));
+        return fpr;
     }
 }

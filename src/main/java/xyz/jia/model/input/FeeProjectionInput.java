@@ -3,21 +3,10 @@ package xyz.jia.model.input;
 import lombok.Data;
 
 @Data
-public class FeeProjectionInput implements InputInterface {
-
-    private int amount;
-
-    private int duration;
-
-    private String startDate;
-
+public class FeeProjectionInput extends AbstractInput {
     @Override
     public String toString() {
-        return "FeeProjectionInput{" +
-                "amount=" + amount +
-                ", duration=" + duration +
-                ", startDate='" + startDate + '\'' +
-                '}';
+        return "FeeProjectionInput{".concat(super.toString()).concat("}");
     }
 }
 

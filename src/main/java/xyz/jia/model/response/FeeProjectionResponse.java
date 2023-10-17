@@ -1,24 +1,26 @@
 package xyz.jia.model.response;
 
-public class FeeProjectionResponse {
-    private String date;
-    private double fee;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import lombok.extern.slf4j.Slf4j;
+import xyz.jia.constants.UrlConstants;
 
-    public String date() {
-        return date;
-    }
+@Slf4j
+public class FeeProjectionResponse extends AbstractOutput {
 
-    public double fee() {
-        return fee;
-    }
-
-    public FeeProjectionResponse setDate(String date) {
-        this.date = date;
-        return this;
-    }
-
-    public FeeProjectionResponse setFee(double fee) {
-        this.fee = fee;
-        return this;
+    @Override
+    public String toString() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String superToString = super.toString();
+            ObjectNode installmentResponse = objectMapper.createObjectNode();
+            installmentResponse.put(UrlConstants.feeProjectionApi, superToString);
+            return installmentResponse.toString();
+        } catch (Exception e) {
+            log.error("Failed to parse response: feeProjectionResponse: ", e);
+            // todo: handle in a better way
+            e.printStackTrace();
+            return "{}";
+        }
     }
 }

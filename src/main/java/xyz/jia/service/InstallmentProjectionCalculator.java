@@ -1,11 +1,15 @@
 package xyz.jia.service;
 
-import xyz.jia.model.response.InstallmentProjectionResponse;
+import org.springframework.stereotype.Component;
+import xyz.jia.model.input.AbstractInput;
+import xyz.jia.model.interfaces.ICalculator;
+import xyz.jia.model.response.AbstractOutput;
 
-import java.util.List;
+@Component
+public class InstallmentProjectionCalculator implements ICalculator {
 
-public class InstallmentProjectionCalculator {
-    public static List<InstallmentProjectionResponse> calculateInstallmentProjections(int amount, int duration, String startDate) {
+    @Override
+    public AbstractOutput calculate(String api, AbstractInput input) {
         // todo: implement functionality
         return null;
     }

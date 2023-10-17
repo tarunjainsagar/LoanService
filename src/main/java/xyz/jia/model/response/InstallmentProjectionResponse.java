@@ -1,24 +1,25 @@
 package xyz.jia.model.response;
 
-public class InstallmentProjectionResponse {
-    private String date;
-    private double amount;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import lombok.extern.slf4j.Slf4j;
+import xyz.jia.constants.UrlConstants;
 
-    public String date() {
-        return date;
-    }
-
-    public double amount() {
-        return amount;
-    }
-
-    public InstallmentProjectionResponse setDate(String date) {
-        this.date = date;
-        return this;
-    }
-
-    public InstallmentProjectionResponse setAmount(double amount) {
-        this.amount = amount;
-        return this;
+@Slf4j
+public class InstallmentProjectionResponse extends AbstractOutput {
+    @Override
+    public String toString() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String superToString = super.toString();
+            ObjectNode installmentResponse = objectMapper.createObjectNode();
+            installmentResponse.put(UrlConstants.installmentProjectionApi, superToString);
+            return installmentResponse.toString();
+        } catch (Exception e) {
+            log.error("Failed to parse response: installmentProjectionResponse: ", e);
+            // todo: handle in a better way
+            e.printStackTrace();
+            return "{}";
+        }
     }
 }

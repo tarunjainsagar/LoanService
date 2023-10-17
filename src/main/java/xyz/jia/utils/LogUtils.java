@@ -3,7 +3,7 @@ package xyz.jia.utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.jia.model.entity.QueryLog;
-import xyz.jia.model.input.InputInterface;
+import xyz.jia.model.input.AbstractInput;
 import xyz.jia.repository.QueryLogRepository;
 
 import java.time.LocalDateTime;
@@ -13,7 +13,7 @@ public class LogUtils {
     @Autowired
     private QueryLogRepository queryLogRepository;
 
-    public void logRequestDetails(String baseUri, String requestUri, InputInterface requestInputParams) {
+    public void logRequestDetails(String baseUri, String requestUri, AbstractInput requestInputParams) {
         QueryLog history = new QueryLog();
         history.setRequestUri(getUri(baseUri, requestUri));
         history.setRequestParams(requestInputParams.toString());

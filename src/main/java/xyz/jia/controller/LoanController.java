@@ -5,11 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import xyz.jia.model.entity.QueryLog;
 import xyz.jia.model.input.FeeProjectionInput;
 import xyz.jia.model.input.InstallmentProjectionInput;
-import xyz.jia.model.response.FeeProjectionResponse;
-import xyz.jia.model.response.InstallmentProjectionResponse;
 import xyz.jia.repository.QueryLogRepository;
-import xyz.jia.service.FeeProjectionCalculator;
-import xyz.jia.service.InstallmentProjectionCalculator;
+import xyz.jia.service.CalculatorFactory;
 import xyz.jia.utils.LogUtils;
 
 import java.util.List;
@@ -27,15 +24,15 @@ public class LoanController {
     private LogUtils logUtils;
 
     @PostMapping(feeProjectionApi)
-    public List<FeeProjectionResponse> postFeeProjections(@RequestBody FeeProjectionInput feeProjectionInput) {
+    public String postFeeProjections(@RequestBody FeeProjectionInput feeProjectionInput) {
         logUtils.logRequestDetails(baseLoanApi, feeProjectionApi, feeProjectionInput);
-        return FeeProjectionCalculator.calculateFeeProjections(feeProjectionInput.getAmount(), feeProjectionInput.getDuration(), feeProjectionInput.getStartDate());
+        return CalculatorFactory.calculate(feeProjectionApi, feeProjectionInput);
     }
 
     @PostMapping(installmentProjectionApi)
-    public List<InstallmentProjectionResponse> postInstallmentProjections(@RequestBody InstallmentProjectionInput installmentProjectionInput) {
+    public String postInstallmentProjections(@RequestBody InstallmentProjectionInput installmentProjectionInput) {
         logUtils.logRequestDetails(baseLoanApi, installmentProjectionApi, installmentProjectionInput);
-        return InstallmentProjectionCalculator.calculateInstallmentProjections(installmentProjectionInput.getAmount(), installmentProjectionInput.getDuration(), installmentProjectionInput.getStartDate());
+        return CalculatorFactory.calculate(installmentProjectionApi, installmentProjectionInput);
     }
 
     @GetMapping(queryHistory)
