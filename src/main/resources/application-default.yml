@@ -6,6 +6,21 @@ loan:
     maxWeeklyDuration: 4
     minMonthlyDuration: 1
     maxMonthlyDuration: 12
+    daysInWeek: 7
+    daysInMonth: 30
+  fees:
+    weekly:
+      interest: 1                   # 1% interest
+      interest_frequency: 1         # Every Week
+      service_fee: 0.5              # 0.5% interest
+      service_fee_cap: 50           # $50
+      service_fee_frequency: 2      # Every 2 Weeks
+    monthly:
+      interest: 4                   # 4% interest
+      interest_frequency: 1         # Every Month
+      service_fee: 0.5              # 0.5% interest
+      service_fee_cap: 100           # $100
+      service_fee_frequency: 3      # Every 2 Months
 
 # Note: Database can be replaced with MySql database or any other database source.
 # Currently, using H2 runtime database for demonstration purpose.

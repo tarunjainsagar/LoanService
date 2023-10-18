@@ -13,13 +13,15 @@ public class FeeProjectionCalculator implements ICalculator {
 
     @Override
     public FeeProjectionResponse calculate(AbstractInput input) {
+
         // todo: implement functionality
 
         /*
-        * dummy implementation to check flow
+        * dummy output for testing
         * */
         FeeProjectionResponse fpr = new FeeProjectionResponse();
         fpr.setProjections(Arrays.asList(
+                // below code is sample, replace by actual installment
                 new ProjectionReponse().setAmount(100).setDate("01/10/2023"),
                 new ProjectionReponse().setAmount(200).setDate("01/10/2025"),
                 new ProjectionReponse().setAmount(300).setDate("01/10/2024")

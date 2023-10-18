@@ -3,7 +3,7 @@ package xyz.jia.utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.jia.annotation.IConstraintValidator;
-import xyz.jia.config.LoanConfiguration;
+import xyz.jia.config.ConstraintsConfiguration;
 import xyz.jia.constants.FormatConstants;
 import xyz.jia.exception.ConstraintValidationException;
 import xyz.jia.model.enums.EnumFrequencyType;
@@ -20,11 +20,11 @@ import java.util.List;
 @Component
 public class ConstraintValidator implements javax.validation.ConstraintValidator<IConstraintValidator, AbstractInput> {
 
-    private final LoanConfiguration loanConfiguration;
+    private final ConstraintsConfiguration configuration;
 
     @Autowired
-    public ConstraintValidator(LoanConfiguration loanConfiguration) {
-        this.loanConfiguration = loanConfiguration;
+    public ConstraintValidator(ConstraintsConfiguration configuration) {
+        this.configuration = configuration;
     }
 
     @Override
@@ -61,21 +61,21 @@ public class ConstraintValidator implements javax.validation.ConstraintValidator
         }
 
         // Check for valid 'amount'
-        if (value.getAmount() <= loanConfiguration.getMinAmount()) {
+        if (value.getAmount() <= configuration.getMinAmount()) {
             errorMessages.add("Invalid 'amount'");
         }
 
         // Check for valid duration based on the frequency type
         switch (value.getDurationType()) {
             case WEEKLY:
-                if (value.getDuration() < loanConfiguration.getMinWeeklyDuration()
-                        || value.getDuration() > loanConfiguration.getMaxWeeklyDuration()) {
+                if (value.getDuration() < configuration.getMinWeeklyDuration()
+                        || value.getDuration() > configuration.getMaxWeeklyDuration()) {
                     errorMessages.add("Duration is invalid for WEEKLY frequency.");
                 }
                 break;
             case MONTHLY:
-                if (value.getDuration() < loanConfiguration.getMinMonthlyDuration()
-                        || value.getDuration() > loanConfiguration.getMaxMonthlyDuration()) {
+                if (value.getDuration() < configuration.getMinMonthlyDuration()
+                        || value.getDuration() > configuration.getMaxMonthlyDuration()) {
                     errorMessages.add("Duration is invalid for MONTHLY frequency.");
                 }
                 break;
