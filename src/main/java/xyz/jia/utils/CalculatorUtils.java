@@ -18,6 +18,7 @@ public class CalculatorUtils {
     @Autowired
     LoanConfiguration loanConfiguration;
 
+    // todo: not important: can cache result for this method
     public int getNoOfInstallments(int loanDuration, EnumFrequencyType durationType, EnumFrequencyType installmentFrequency) {
         int noOfInstallments = loanDuration;
 
@@ -31,6 +32,7 @@ public class CalculatorUtils {
         return noOfInstallments;
     }
 
+    // todo: not important: can cache result for this method
     public int getPrincipalForEachInstallment(int loanAmount, int noOfInstallments) {
         // principal evenly spread across all installments
         double principalForEachInstallment = (double) loanAmount / noOfInstallments;
