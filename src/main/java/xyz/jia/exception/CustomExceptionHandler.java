@@ -25,12 +25,12 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InvalidApiException.class)
-    public final ResponseEntity<Object> handleValidationException(InvalidApiException ex) {
+    @ExceptionHandler(InvalidRequestException.class)
+    public final ResponseEntity<Object> handleValidationException(InvalidRequestException ex) {
         String errorMessage = ex.getMessage();
         Map<String, Object> responseBody = new HashMap<>();
         responseBody.put("status", ERROR_CODE_BAD_REQUEST);
-        responseBody.put("message", INVALID_API);
+        responseBody.put("message", INVALID_REQUEST);
         responseBody.put("errors", errorMessage);
 
         return new ResponseEntity<>(responseBody, HttpStatus.BAD_REQUEST);

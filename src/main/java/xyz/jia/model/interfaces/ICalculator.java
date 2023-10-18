@@ -7,6 +7,5 @@ import xyz.jia.model.response.AbstractOutput;
 public interface ICalculator {
 
     @Autowired
-
     AbstractOutput calculate(AbstractInput input);
 }

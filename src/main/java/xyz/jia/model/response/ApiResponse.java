@@ -7,7 +7,7 @@ import xyz.jia.constants.ErrorConstants;
 @Data
 public class ApiResponse {
 
-    private String status = ErrorConstants.SUCCESS;
+    private String status;
     private String message;
     private ObjectNode data;
 

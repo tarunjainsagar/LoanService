@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import xyz.jia.constants.UriConstants;
-import xyz.jia.exception.InvalidApiException;
+import xyz.jia.exception.InvalidRequestException;
 import xyz.jia.model.input.AbstractInput;
 import xyz.jia.model.interfaces.ICalculator;
 import xyz.jia.utils.LogUtils;
@@ -32,7 +32,7 @@ public class CalculatorFactory {
         } else if (UriConstants.installmentProjectionApi.equals(api)) {
             calculatorInterface = installmentProjectionCalculator;
         } else {
-            throw new InvalidApiException(api);
+            throw new InvalidRequestException(api);
         }
 
         /*

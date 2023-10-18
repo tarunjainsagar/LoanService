@@ -33,6 +33,7 @@ public abstract class AbstractInput {
                 .append(", duration=").append(duration)
                 .append(", durationType=").append(durationType)
                 .append(", installmentFrequency=").append(installmentFrequency)
+                .append(", showDetails=").append(showDetails)
                 .append(", startDate='").append(startDate).append("'");
         return sb.toString();
     }

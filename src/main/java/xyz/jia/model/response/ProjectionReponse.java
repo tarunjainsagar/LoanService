@@ -6,9 +6,7 @@ import lombok.Data;
 public class ProjectionReponse {
 
     private String date;
-
     private double amount;
-
     private String remark;
 
     public ProjectionReponse setDate(String date) {

@@ -12,5 +12,4 @@ import java.util.List;
 public interface QueryLogRepository extends JpaRepository<QueryLog, Long> {
 
     List<QueryLog> findByRequestTimestampBetween(LocalDateTime fromDate, LocalDateTime toDate, Sort sort);
-
 }
