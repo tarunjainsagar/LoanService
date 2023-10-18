@@ -41,8 +41,9 @@ public class CalculatorUtils {
     }
 
     public static List<ProjectionReponse> getInstallments(AbstractInput input,
-                                                           int principalForEachInstallment,
-                                                           int noOfInstallments) {
+                                                          int principalForEachInstallment,
+                                                          int noOfInstallments,
+                                                          boolean onlyFees) {
         List<ProjectionReponse> installments = new ArrayList<>();
         Integer loanAmount = input.getAmount();
         int daysInFrequency;
@@ -69,7 +70,7 @@ public class CalculatorUtils {
 
         int serviceFeeInstallment = 1;
         for (int installmentCount = 0; installmentCount < noOfInstallments; installmentCount++) {
-            double installmentAmount = principalForEachInstallment + fixedInterest;
+            double installmentAmount = onlyFees ? fixedInterest : (principalForEachInstallment + fixedInterest);
             double serviceFee = 0;
             LocalDate installmentDate = startDate.plusDays((long) daysInFrequency * installmentCount);
 
@@ -84,14 +85,17 @@ public class CalculatorUtils {
             installments.add(new ProjectionReponse()
                     .setAmount(installmentAmount)
                     .setDate(installmentDate.toString())
-                    .setRemark(generateRemark(principalForEachInstallment, fixedInterest, serviceFee)));
+                    .setRemark(generateRemark(principalForEachInstallment, fixedInterest, serviceFee, onlyFees)));
         }
         return installments;
     }
 
-    private static String generateRemark(Integer principalLoanAmount, double fixedInterest, double serviceFee) {
-        return "Principal Installment: ".concat(String.valueOf(principalLoanAmount))
-                .concat(", Interest: ").concat(String.valueOf(fixedInterest))
-                .concat(", Service Fees: ").concat(String.valueOf(serviceFee));
+    private static String generateRemark(Integer principalLoanAmount, double fixedInterest, double serviceFee, boolean onlyFees) {
+        StringBuilder remarkBuilder = new StringBuilder("Interest: ").append(fixedInterest).append(", Service Fees: ").append(serviceFee);
+        if (!onlyFees) {
+            remarkBuilder.append(", Principal Installment: ").append(principalLoanAmount);
+        }
+        return remarkBuilder.toString();
     }
+
 }

@@ -17,13 +17,12 @@ public class InstallmentProjectionCalculator implements ICalculator {
     public InstallmentProjectionResponse calculate(AbstractInput input) {
 
         int loanAmount = input.getAmount();
-        int loanDuration = input.getDuration();
         EnumFrequencyType installmentFrequency = input.getInstallmentFrequency();
         EnumFrequencyType durationType = input.getDurationType();
 
-        int noOfInstallments = CalculatorUtils.getNoOfInstallments(loanDuration, durationType, installmentFrequency);
+        int noOfInstallments = CalculatorUtils.getNoOfInstallments(input.getDuration(), durationType, installmentFrequency);
         int principalForEachInstallment = CalculatorUtils.getPrincipalForEachInstallment(loanAmount, noOfInstallments);
-        List<ProjectionReponse> installments = CalculatorUtils.getInstallments(input, principalForEachInstallment, noOfInstallments);
+        List<ProjectionReponse> installments = CalculatorUtils.getInstallments(input, principalForEachInstallment, noOfInstallments, false);
 
         InstallmentProjectionResponse ipr = new InstallmentProjectionResponse();
         ipr.setActual_loan_amount(loanAmount);
