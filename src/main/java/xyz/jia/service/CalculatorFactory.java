@@ -1,5 +1,6 @@
 package xyz.jia.service;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ public class CalculatorFactory {
         CalculatorFactory.installmentProjectionCalculator = installmentProjectionCalculator;
     }
 
-    public static String calculate(String api, AbstractInput input) {
+    public static ObjectNode calculate(String api, AbstractInput input) {
         ICalculator calculatorInterface;
 
         if (UriConstants.feeProjectionApi.equals(api)) {
@@ -42,6 +43,6 @@ public class CalculatorFactory {
             }
          */
         LogUtils.logRequestDetails(baseLoanApi, api, input);
-        return calculatorInterface.calculate(input).buildOutput(input.isShowDetails()).toString();
+        return calculatorInterface.calculate(input).buildOutput(input.isShowDetails());
     }
 }

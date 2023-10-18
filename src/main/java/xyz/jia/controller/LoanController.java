@@ -1,10 +1,12 @@
 package xyz.jia.controller;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import xyz.jia.model.entity.QueryLog;
 import xyz.jia.model.input.FeeProjectionInput;
 import xyz.jia.model.input.InstallmentProjectionInput;
+import xyz.jia.model.response.ApiResponse;
 import xyz.jia.repository.QueryLogRepository;
 import xyz.jia.service.CalculatorFactory;
 
@@ -21,13 +23,17 @@ public class LoanController {
     private QueryLogRepository queryLogRepository;
 
     @PostMapping(feeProjectionApi)
-    public String feeProjections(@RequestBody @Valid FeeProjectionInput feeProjectionInput) {
-        return CalculatorFactory.calculate(feeProjectionApi, feeProjectionInput);
+    public ApiResponse feeProjections(@RequestBody @Valid FeeProjectionInput feeProjectionInput) {
+        ApiResponse response = new ApiResponse();
+        ObjectNode feeProjections = CalculatorFactory.calculate(feeProjectionApi, feeProjectionInput);
+        return response.prepareSuccessResponse(feeProjections);
     }
 
     @PostMapping(installmentProjectionApi)
-    public String installmentProjections(@RequestBody InstallmentProjectionInput installmentProjectionInput) {
-        return CalculatorFactory.calculate(installmentProjectionApi, installmentProjectionInput);
+    public ApiResponse installmentProjections(@RequestBody InstallmentProjectionInput installmentProjectionInput) {
+        ApiResponse response = new ApiResponse();
+        ObjectNode installmentProjections = CalculatorFactory.calculate(installmentProjectionApi, installmentProjectionInput);
+        return response.prepareSuccessResponse(installmentProjections);
     }
 
     @GetMapping(queryHistoryApi)

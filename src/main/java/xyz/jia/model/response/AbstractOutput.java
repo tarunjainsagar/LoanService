@@ -1,5 +1,7 @@
 package xyz.jia.model.response;
 
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.Data;
 import xyz.jia.model.enums.EnumFrequencyType;
 
@@ -21,24 +23,24 @@ public abstract class AbstractOutput {
     private EnumFrequencyType installmentFrequency;
     List<ProjectionReponse> projections;
 
-    public StringBuilder buildOutput(boolean showDetails) {
-        StringBuilder sb = new StringBuilder();
+    public ObjectNode buildOutput(boolean showDetails) {
+        ObjectNode jsonOutput = JsonNodeFactory.instance.objectNode();
 
         if (showDetails) {
-            sb.append("actual_loan_amount=").append(actual_loan_amount).append(System.lineSeparator())
-                    .append("total_interest_amount=").append(total_interest_amount).append(System.lineSeparator())
-                    .append("total_service_fee_amount=").append(total_service_fee_amount).append(System.lineSeparator())
-                    .append("total_payable_amount=").append(total_payable_amount).append(System.lineSeparator())
-                    .append("no_of_installments=").append(no_of_installments).append(System.lineSeparator())
-                    .append("durationType=").append(durationType).append(System.lineSeparator())
-                    .append("installmentFrequency=").append(installmentFrequency).append(System.lineSeparator())
-                    .append("Projections:").append(System.lineSeparator());
+            jsonOutput.put("actual_loan_amount", actual_loan_amount);
+            jsonOutput.put("total_interest_amount", total_interest_amount);
+            jsonOutput.put("total_service_fee_amount", total_service_fee_amount);
+            jsonOutput.put("total_payable_amount", total_payable_amount);
+            jsonOutput.put("no_of_installments", no_of_installments);
+            jsonOutput.put("durationType", durationType != null ? durationType.toString() : "");
+            jsonOutput.put("installmentFrequency", installmentFrequency != null ? installmentFrequency.toString() : "");
         }
 
+        ObjectNode projectionsNode = JsonNodeFactory.instance.objectNode();
         for (ProjectionReponse response : projections) {
-            // Append each date and amount in the specified format
-            sb.append(response.getDate()).append(" => ").append(response.getAmount()).append(System.lineSeparator());
+            projectionsNode.put(response.getDate(), response.getAmount());
         }
-        return sb;
+        jsonOutput.set("Projections", projectionsNode);
+        return jsonOutput;
     }
 }

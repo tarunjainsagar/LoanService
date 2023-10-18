@@ -1,5 +1,6 @@
 package xyz.jia.model.response;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.extern.slf4j.Slf4j;
 import xyz.jia.constants.UriConstants;
 
@@ -7,11 +8,11 @@ import xyz.jia.constants.UriConstants;
 public class FeeProjectionResponse extends AbstractOutput {
 
     @Override
-    public StringBuilder buildOutput(boolean showDetails) {
-        StringBuilder sb = super.buildOutput(showDetails);
+    public ObjectNode buildOutput(boolean showDetails) {
+        ObjectNode response = super.buildOutput(showDetails);
         if (showDetails) {
-            sb.append("projections_type=").append(UriConstants.feeProjectionApi).append(System.lineSeparator());
+            response.put("projections_type", UriConstants.feeProjectionApi);
         }
-        return sb;
+        return response;
     }
 }
