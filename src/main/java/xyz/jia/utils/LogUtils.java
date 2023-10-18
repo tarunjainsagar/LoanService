@@ -13,13 +13,10 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class LogUtils {
 
-    private static QueryLogRepository queryLogRepository;
     @Autowired
-    LogUtils(QueryLogRepository queryLogRepository) {
-        LogUtils.queryLogRepository = queryLogRepository;
-    }
+    private QueryLogRepository queryLogRepository;
 
-    public static void logRequestDetails(String baseUri, String requestUri, AbstractInput requestInputParams) {
+    public void logRequestDetails(String baseUri, String requestUri, AbstractInput requestInputParams) {
         QueryLog history = new QueryLog();
         history.setRequestUri(getUri(baseUri, requestUri));
         // todo: fix: recording one parameter in one column would be a good practice to search efficiently as a later stage
@@ -29,7 +26,7 @@ public class LogUtils {
         queryLogRepository.save(history);
     }
 
-    private static String getUri(String baseUri, String requestUri) {
+    private String getUri(String baseUri, String requestUri) {
         return baseUri.concat(requestUri);
     }
 }

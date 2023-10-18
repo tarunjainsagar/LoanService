@@ -15,16 +15,15 @@ import static xyz.jia.constants.UriConstants.baseLoanApi;
 @Component
 @RequiredArgsConstructor
 public class CalculatorFactory {
-    private static FeeProjectionCalculator feeProjectionCalculator;
-    private static InstallmentProjectionCalculator installmentProjectionCalculator;
 
     @Autowired
-    CalculatorFactory(FeeProjectionCalculator feeProjectionCalculator, InstallmentProjectionCalculator installmentProjectionCalculator) {
-        CalculatorFactory.feeProjectionCalculator = feeProjectionCalculator;
-        CalculatorFactory.installmentProjectionCalculator = installmentProjectionCalculator;
-    }
+    private LogUtils logUtils;
+    @Autowired
+    private FeeProjectionCalculator feeProjectionCalculator;
+    @Autowired
+    private InstallmentProjectionCalculator installmentProjectionCalculator;
 
-    public static ObjectNode calculate(String api, AbstractInput input) {
+    public ObjectNode calculate(String api, AbstractInput input) {
         ICalculator calculatorInterface;
 
         if (UriConstants.feeProjectionApi.equals(api)) {
@@ -42,7 +41,7 @@ public class CalculatorFactory {
                 throw new RuntimeException();
             }
          */
-        LogUtils.logRequestDetails(baseLoanApi, api, input);
+        logUtils.logRequestDetails(baseLoanApi, api, input);
         return calculatorInterface.calculate(input).buildOutput(input.isShowDetails());
     }
 }

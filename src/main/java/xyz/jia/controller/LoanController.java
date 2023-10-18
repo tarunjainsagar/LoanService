@@ -31,17 +31,20 @@ public class LoanController {
     @Autowired
     private QueryLogRepository queryLogRepository;
 
+    @Autowired
+    private CalculatorFactory calculatorFactory;
+
     @PostMapping(feeProjectionApi)
     public ApiResponse feeProjections(@RequestBody @Valid FeeProjectionInput feeProjectionInput) {
         ApiResponse response = new ApiResponse();
-        ObjectNode feeProjections = CalculatorFactory.calculate(feeProjectionApi, feeProjectionInput);
+        ObjectNode feeProjections = calculatorFactory.calculate(feeProjectionApi, feeProjectionInput);
         return response.prepareSuccessResponse(feeProjections);
     }
 
     @PostMapping(installmentProjectionApi)
     public ApiResponse installmentProjections(@RequestBody @Valid InstallmentProjectionInput installmentProjectionInput) {
         ApiResponse response = new ApiResponse();
-        ObjectNode installmentProjections = CalculatorFactory.calculate(installmentProjectionApi, installmentProjectionInput);
+        ObjectNode installmentProjections = calculatorFactory.calculate(installmentProjectionApi, installmentProjectionInput);
         return response.prepareSuccessResponse(installmentProjections);
     }
 
