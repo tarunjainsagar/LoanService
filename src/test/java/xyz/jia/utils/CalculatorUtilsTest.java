@@ -139,7 +139,8 @@ public class CalculatorUtilsTest {
         InstallmentProjectionInput input = new InstallmentProjectionInput();
         input.setAmount(2000);
         input.setInstallmentFrequency(EnumFrequencyType.MONTHLY);
-        input.setStartDate("2023-10-20");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        input.setStartDate(dateFormat.format(new Date()));
         int principalForEachInstallment = 200;
         int noOfInstallments = 10;
         boolean onlyFees = false;
@@ -157,6 +158,31 @@ public class CalculatorUtilsTest {
         assertEquals(280.0, installments.get(7).getAmount(), 0.0);
         assertEquals(290.0, installments.get(8).getAmount(), 0.0);
         assertEquals(280.0, installments.get(9).getAmount(), 0.0);
+    }
+    @Test
+    public void testGetInstallmentsWithServiceFeeCap() {
+        InstallmentProjectionInput input = new InstallmentProjectionInput();
+        input.setAmount(20000);
+        input.setInstallmentFrequency(EnumFrequencyType.MONTHLY);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        input.setStartDate(dateFormat.format(new Date()));
+        int principalForEachInstallment = 2000;
+        int noOfInstallments = 10;
+        boolean onlyFees = false;
+
+        List<ProjectionReponse> installments = calculatorUtils.getInstallments(input, principalForEachInstallment, noOfInstallments, onlyFees);
+
+        assertEquals(10, installments.size());
+        assertEquals(2800.0, installments.get(0).getAmount(), 0.0);
+        assertEquals(2800.0, installments.get(1).getAmount(), 0.0);
+        assertEquals(2900.0, installments.get(2).getAmount(), 0.0);
+        assertEquals(2800.0, installments.get(3).getAmount(), 0.0);
+        assertEquals(2800.0, installments.get(4).getAmount(), 0.0);
+        assertEquals(2900.0, installments.get(5).getAmount(), 0.0);
+        assertEquals(2800.0, installments.get(6).getAmount(), 0.0);
+        assertEquals(2800.0, installments.get(7).getAmount(), 0.0);
+        assertEquals(2900.0, installments.get(8).getAmount(), 0.0);
+        assertEquals(2800.0, installments.get(9).getAmount(), 0.0);
     }
 
 }
