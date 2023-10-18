@@ -26,7 +26,7 @@ public class LogUtils {
         queryLogRepository.save(history);
     }
 
-    private String getUri(String baseUri, String requestUri) {
+    String getUri(String baseUri, String requestUri) {
         return baseUri.concat(requestUri);
     }
 }
