@@ -14,33 +14,30 @@ import java.util.List;
 
 @Component
 public class CalculatorUtils {
-    private static LoanConfiguration loanConfiguration;
 
     @Autowired
-    public CalculatorUtils(LoanConfiguration loanConfiguration) {
-        CalculatorUtils.loanConfiguration = loanConfiguration;
-    }
+    LoanConfiguration loanConfiguration;
 
-    public static int getNoOfInstallments(int loanDuration, EnumFrequencyType durationType, EnumFrequencyType installmentFrequency) {
+    public int getNoOfInstallments(int loanDuration, EnumFrequencyType durationType, EnumFrequencyType installmentFrequency) {
         int noOfInstallments = loanDuration;
 
         if (durationType == EnumFrequencyType.MONTHLY && installmentFrequency == EnumFrequencyType.WEEKLY) {
             // convert months to weeks
-            int totalDaysToPayLoan = loanDuration * CalculatorUtils.loanConfiguration.getConstraints().getDaysInMonth();
-            double totalWeeks = (double) totalDaysToPayLoan / CalculatorUtils.loanConfiguration.getConstraints().getDaysInWeek();
+            int totalDaysToPayLoan = loanDuration * loanConfiguration.getConstraints().getDaysInMonth();
+            double totalWeeks = (double) totalDaysToPayLoan / loanConfiguration.getConstraints().getDaysInWeek();
             noOfInstallments = (int) Math.ceil(totalWeeks);
         }
 
         return noOfInstallments;
     }
 
-    public static int getPrincipalForEachInstallment(int loanAmount, int noOfInstallments) {
+    public int getPrincipalForEachInstallment(int loanAmount, int noOfInstallments) {
         // principal evenly spread across all installments
         double principalForEachInstallment = (double) loanAmount / noOfInstallments;
         return (int) Math.ceil(principalForEachInstallment);
     }
 
-    public static List<ProjectionReponse> getInstallments(AbstractInput input,
+    public List<ProjectionReponse> getInstallments(AbstractInput input,
                                                           int principalForEachInstallment,
                                                           int noOfInstallments,
                                                           boolean onlyFees) {
@@ -90,7 +87,7 @@ public class CalculatorUtils {
         return installments;
     }
 
-    private static String generateRemark(Integer principalLoanAmount, double fixedInterest, double serviceFee, boolean onlyFees) {
+    private String generateRemark(Integer principalLoanAmount, double fixedInterest, double serviceFee, boolean onlyFees) {
         StringBuilder remarkBuilder = new StringBuilder("Interest: ").append(fixedInterest).append(", Service Fees: ").append(serviceFee);
         if (!onlyFees) {
             remarkBuilder.append(", Principal Installment: ").append(principalLoanAmount);
