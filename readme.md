@@ -33,92 +33,117 @@ Follow these steps to run the project:
    java -jar target/loan-0.0.1-SNAPSHOT.jar
     ```
    
-   3. Sample Api Calls:
-      1. Fee Projections Api Request
-      ```bash
-      curl -X POST -H "Content-Type: application/json" -d '{
-       "amount": 3000,
-       "duration": 3,
-       "startDate": "2023-11-01",
-       "durationType": "WEEKLY",
-       "installmentFrequency": "WEEKLY", "showDetails": true
-       }' http://localhost:8080/loan/feeProjections
-      ```
-      2. Installment Projections Api Request
-      ```bash
-      curl -X POST -H "Content-Type: application/json" -d '{
-       "amount": 3000,
-       "duration": 3,
-       "startDate": "2023-11-01",
-       "durationType": "WEEKLY",
-       "installmentFrequency": "WEEKLY", "showDetails": true
-       }' http://localhost:8080/loan/feeProjections
-      ```
-       3. View Query/Request History Request
-      ```bash
-        curl -X GET "http://localhost:8080/loan/getQueryHistory?fromDate=2023-10-18&toDate=2023-10-18"
-       ```
+3. Sample Api Calls:
+   1. Fee Projections Api Request
+   ```bash
+   curl -X POST -H "Content-Type: application/json" -d '{
+    "amount": 3000,
+    "duration": 3,
+    "startDate": "2023-11-01",
+    "durationType": "WEEKLY",
+    "installmentFrequency": "WEEKLY", "showDetails": true
+    }' http://localhost:8080/loan/feeProjections
+   ```
+   2. Installment Projections Api Request
+   ```bash
+   curl -X POST -H "Content-Type: application/json" -d '{
+    "amount": 3000,
+    "duration": 3,
+    "startDate": "2023-11-01",
+    "durationType": "WEEKLY",
+    "installmentFrequency": "WEEKLY", "showDetails": true
+    }' http://localhost:8080/loan/feeProjections
+   ```
+    3. View Query/Request History Request
+   ```bash
+     curl -X GET "http://localhost:8080/loan/getQueryHistory?fromDate=2023-10-18&toDate=2023-10-18"
+    ```
    
-      4. Sample Responses:
-         1. Fee Projections Api Response
-         ```bash
-         {
-            "status": "200",
-            "message": "Success",
-            "data": {
-               "actual_loan_amount": 3000,
-               "no_of_installments": 3,
-               "durationType": "WEEKLY",
-               "installmentFrequency": "WEEKLY",
-               "Projections": [
-                  {
-                     "date": "2023-11-01",
-                     "amount": 30.0,
-                     "remark": "Interest: 30.0, Service Fees: 0.0"
-                  },
-                  {
-                     "date": "2023-11-08",
-                     "amount": 45.0,
-                     "remark": "Interest: 30.0, Service Fees: 15.0"
-                  },
-                  {
-                     "date": "2023-11-15",
-                     "amount": 30.0,
-                     "remark": "Interest: 30.0, Service Fees: 0.0"
-                  }
-               ],
-               "projections_type": "/feeProjections"
+4. Sample Responses:
+   1. Fee Projections Api Response
+   ```bash
+   {
+      "status": "200",
+      "message": "Success",
+      "data": {
+         "actual_loan_amount": 3000,
+         "no_of_installments": 3,
+         "durationType": "WEEKLY",
+         "installmentFrequency": "WEEKLY",
+         "Projections": [
+            {
+               "date": "2023-11-01",
+               "amount": 30.0,
+               "remark": "Interest: 30.0, Service Fees: 0.0"
+            },
+            {
+               "date": "2023-11-08",
+               "amount": 45.0,
+               "remark": "Interest: 30.0, Service Fees: 15.0"
+            },
+            {
+               "date": "2023-11-15",
+               "amount": 30.0,
+               "remark": "Interest: 30.0, Service Fees: 0.0"
             }
-         }
-         ```
-         2. Installment Projections Api Response
-         ```bash
-         {
-            "status": "200",
-            "message": "Success",
-            "data": {
-               "actual_loan_amount": 3000,
-               "no_of_installments": 3,
-               "durationType": "WEEKLY",
-               "installmentFrequency": "WEEKLY",
-               "Projections": [
-                  {
-                     "date": "2023-11-01",
-                     "amount": 1030.0,
-                     "remark": "Interest: 30.0, Service Fees: 0.0, Principal Installment: 1000"
-                  },
-                  {
-                     "date": "2023-11-08",
-                     "amount": 1045.0,
-                     "remark": "Interest: 30.0, Service Fees: 15.0, Principal Installment: 1000"
-                  },
-                  {
-                     "date": "2023-11-15",
-                     "amount": 1030.0,
-                     "remark": "Interest: 30.0, Service Fees: 0.0, Principal Installment: 1000"
-                  }
-               ],
-               "projections_type": "/installmentProjections"
+         ],
+         "projections_type": "/feeProjections"
+      }
+   }
+   ```
+   2. Installment Projections Api Response
+   ```bash
+   {
+      "status": "200",
+      "message": "Success",
+      "data": {
+         "actual_loan_amount": 3000,
+         "no_of_installments": 3,
+         "durationType": "WEEKLY",
+         "installmentFrequency": "WEEKLY",
+         "Projections": [
+            {
+               "date": "2023-11-01",
+               "amount": 1030.0,
+               "remark": "Interest: 30.0, Service Fees: 0.0, Principal Installment: 1000"
+            },
+            {
+               "date": "2023-11-08",
+               "amount": 1045.0,
+               "remark": "Interest: 30.0, Service Fees: 15.0, Principal Installment: 1000"
+            },
+            {
+               "date": "2023-11-15",
+               "amount": 1030.0,
+               "remark": "Interest: 30.0, Service Fees: 0.0, Principal Installment: 1000"
             }
-         }
-         ```
+         ],
+         "projections_type": "/installmentProjections"
+      }
+   }
+   ```
+5. **API Documentation**
+  
+   Available Endpoints: 
+   1. http://localhost:8080/loan/feeProjections
+   1. http://localhost:8080/loan/installmentProjections
+
+   HTTP Method: POST
+
+   Content-Type: application/json
+
+   **Request Body**
+
+   The request body should be in JSON format and include the following parameters:
+
+   **amount** (integer, required): The loan amount.
+
+   **duration** (integer, required): The loan duration in terms of the selected durationType.
+   
+   **startDate** (string, required): The start date of the loan in 'yyyy-MM-dd' format.
+   
+   **durationType** (string, required): The type of duration (e.g., "WEEKLY" or "MONTHLY").
+   
+   **installmentFrequency** (string, required): The frequency of installments (e.g., "WEEKLY" or "MONTHLY").
+   
+   **showDetails** (boolean, optional): Set to true if you want to include details in the response.
