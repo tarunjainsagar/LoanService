@@ -15,7 +15,7 @@ import java.util.List;
 public class InstallmentProjectionCalculator implements ICalculator {
 
     @Autowired
-    private CalculatorUtils calculatorUtils;
+    CalculatorUtils calculatorUtils;
 
     @Override
     public InstallmentProjectionResponse calculate(AbstractInput input) {
