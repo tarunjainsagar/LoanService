@@ -3,13 +3,13 @@ package xyz.jia.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import xyz.jia.constants.UrlConstants;
+import xyz.jia.constants.UriConstants;
+import xyz.jia.exception.InvalidApiException;
 import xyz.jia.model.input.AbstractInput;
 import xyz.jia.model.interfaces.ICalculator;
-import xyz.jia.utils.FormatUtils;
 import xyz.jia.utils.LogUtils;
 
-import static xyz.jia.constants.UrlConstants.baseLoanApi;
+import static xyz.jia.constants.UriConstants.baseLoanApi;
 
 @Component
 @RequiredArgsConstructor
@@ -26,19 +26,22 @@ public class CalculatorFactory {
     public static String calculate(String api, AbstractInput input) {
         ICalculator calculatorInterface;
 
-        if (UrlConstants.feeProjectionApi.equals(api)) {
+        if (UriConstants.feeProjectionApi.equals(api)) {
             calculatorInterface = feeProjectionCalculator;
-        } else if (UrlConstants.installmentProjectionApi.equals(api)) {
+        } else if (UriConstants.installmentProjectionApi.equals(api)) {
             calculatorInterface = installmentProjectionCalculator;
         } else {
-            // todo: handle exception
-            throw new RuntimeException();
+            throw new InvalidApiException(api);
         }
+
+        /*
+            // Note: This functionality is replaced using @IConstraintValidator
+            boolean isValidRequest = input.validateInput();
+            if(!isValidRequest) {
+                throw new RuntimeException();
+            }
+         */
         LogUtils.logRequestDetails(baseLoanApi, api, input);
-        return FormatUtils.formatResponse(calculatorInterface.calculate(api, input));
+        return calculatorInterface.calculate(input).buildOutput(input.isShowDetails()).toString();
     }
-
-
-
-
 }

@@ -1,5 +1,14 @@
+# Loan configuration
+loan:
+  constraints:
+    minAmount: 0
+    minWeeklyDuration: 1
+    maxWeeklyDuration: 4
+    minMonthlyDuration: 1
+    maxMonthlyDuration: 12
+
 # Note: Database can be replaced with MySql database or any other database source.
-# Currently using H2 runtime database for demonstration purpose.
+# Currently, using H2 runtime database for demonstration purpose.
 spring:
   datasource:
     driver-class-name: org.h2.Driver

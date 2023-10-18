@@ -1,0 +1,19 @@
+// This is for manual quick testing until tests cases are automated
+
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-20"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-20", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 0, "duration": 2, "startDate": "2023-10-20", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 5, "startDate": "2023-10-20", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-20", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-10", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-10", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-20", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-20", "durationType" : "WEEKLY", "installmentFrequency": "MONTHLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-20", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023/10/20", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023/10/20", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-20", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-20", "durationType" : "WEEKLY", "installmentFrequency": "MONTHLY"}' http://localhost:8080/loan/feeProjections
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-10", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY"}' http://localhost:8080/loan/feeProjections
+
+curl -X POST -H "Content-Type: application/json" -d '{"amount": 1000, "duration": 2, "startDate": "2023-10-20", "durationType" : "WEEKLY", "installmentFrequency": "WEEKLY", "showDetails": true}' http://localhost:8080/loan/feeProjections

@@ -8,9 +8,10 @@ import xyz.jia.model.input.InstallmentProjectionInput;
 import xyz.jia.repository.QueryLogRepository;
 import xyz.jia.service.CalculatorFactory;
 
+import javax.validation.Valid;
 import java.util.List;
 
-import static xyz.jia.constants.UrlConstants.*;
+import static xyz.jia.constants.UriConstants.*;
 
 @RestController
 @RequestMapping(baseLoanApi)
@@ -20,7 +21,7 @@ public class LoanController {
     private QueryLogRepository queryLogRepository;
 
     @PostMapping(feeProjectionApi)
-    public String feeProjections(@RequestBody FeeProjectionInput feeProjectionInput) {
+    public String feeProjections(@RequestBody @Valid FeeProjectionInput feeProjectionInput) {
         return CalculatorFactory.calculate(feeProjectionApi, feeProjectionInput);
     }
 

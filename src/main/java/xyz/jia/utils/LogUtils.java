@@ -22,6 +22,7 @@ public class LogUtils {
     public static void logRequestDetails(String baseUri, String requestUri, AbstractInput requestInputParams) {
         QueryLog history = new QueryLog();
         history.setRequestUri(getUri(baseUri, requestUri));
+        // todo: fix: recording one parameter in one column would be a good practice to search efficiently as a later stage
         history.setRequestParams(requestInputParams.toString());
         history.setRequestTimestamp(LocalDateTime.now());
 
